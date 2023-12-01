@@ -1,14 +1,14 @@
 import clientesController from "./clientesController.js";
-import ReviewsController from './pedidosController.js';
+import pedidosController from './pedidosController.js';
 
-export default class MoviesRoute {
+export default class clientesRoute {
 	static configRoutes(router) {
-		router.route('/').get(MoviesController.apiGetMovies);
+		router.route('/').get(clientesController.apiGetClientes);
 		router
 			.route('/review')
-			.post( ReviewsController.apiPostReview)
-			.put(ReviewsController.apiUpdateReview)
-			.delete(ReviewsController.apiDeleteReview);
+			.post( pedidosController.apiPostPedido)
+			.put(pedidosController.apiUpdatePedido)
+			.delete(pedidosController.apiDeletePedido);
 		return router;
 	}
 }

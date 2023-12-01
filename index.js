@@ -1,9 +1,9 @@
 // Cargar módulos necesarios
 import express from 'express';
 import cors from 'cors';
-import MoviesRoute from './api/MoviesRoute.js';
-import MoviesDAO from './dao/MoviesDAO.js';
-import ReviewsDAO from './dao/ReviewsDAO.js';
+import clientesRoute from './api/clientesRoute.js';
+import clientesDAO from './dao/clientesDAO.js';
+import pedidosDAO from './dao/pedidosDAO.js';
 import dotenv from 'dotenv';
 import mongodb from 'mongodb';
 
@@ -22,7 +22,7 @@ class Index {
 		Index.app.use(cors());
 		Index.app.use(express.json());
 		Index.app.use(express.urlencoded({ extended: true }));
-		Index.app.use('/api/v1/client', MoviesRoute.configRoutes(Index.router));
+		Index.app.use('/api/v1/client', clientesRoute.configRoutes(Index.router));
 		Index.app.use('*', (req, res) => {
 			res.status(404).json({ error: 'not found' });
 		});
@@ -36,8 +36,8 @@ class Index {
 		try {
 			// Connect to the MongoDB cluster
 			await client.connect();
-			await MoviesDAO.injectDB(client);
-			await ReviewsDAO.injectDB(client);
+			await clientesDAO.injectDB(client);
+			await pedidosDAO.injectDB(client);
 			Index.app.listen(port, () => {
 				console.log(`server is running on port:${port}`);
 			});

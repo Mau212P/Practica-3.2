@@ -27,7 +27,7 @@ export default class pedidosDAO {
                 total,
                 hora_pedido
             };
-            //console.log(reviewDoc);
+            //console.log(pedidosDoc);
             return await pedidosDAO.Pedidos.insertOne(pedidosDoc);
         } catch (e) {
             console.error(`unable to request: ${e}`);
@@ -38,7 +38,7 @@ export default class pedidosDAO {
     static async updatePedido(pedidoId, clienteId, Pedidos, hora_pedido) {
         try {
             const updateResponse = await pedidosDAO.Pedidos.updateOne(
-                { user_id: new ReviewsDAO.ObjectId(clienteId), _id: new pedidoDAO.ObjectId(pedidoId) },
+                { user_id: new pedidosDAO.ObjectId(clienteId), _id: new pedidosDAO.ObjectId(pedidoId) },
                 { $set: { Pedidos, hora_pedido } },
             );
             return updateResponse;
@@ -50,9 +50,9 @@ export default class pedidosDAO {
 
     static async deletePedido(pedidoId, clienteId) {
         try {
-            const deleteResponse = await clienteDAO.Pedidos.deleteOne({
-                _id: new pedidoDAO.ObjectId(pedidoId),
-                user_id: new pedidoDAO.ObjectId(clienteId),
+            const deleteResponse = await pedidosDAO.Pedidos.deleteOne({
+                _id: new pedidosDAO.ObjectId(pedidoId),
+                user_id: new pedidosDAO.ObjectId(clienteId),
             });
             return deleteResponse;
         } catch (e) {
